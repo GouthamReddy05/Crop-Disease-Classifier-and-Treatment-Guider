@@ -1,0 +1,10 @@
+myenv/
+__pycache__/
+*.pyc
+*.keras
+*.so
+*.dylib
+*.log
+*.env
+.DS_Store
+.env
