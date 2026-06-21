@@ -13,6 +13,8 @@ import uuid
 
 load_dotenv()
 
+print("APP FILE LOADED")
+
 ROOT_DIR = Path(__file__).resolve().parent.parent
 UPLOAD_FOLDER = ROOT_DIR / 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff'}
