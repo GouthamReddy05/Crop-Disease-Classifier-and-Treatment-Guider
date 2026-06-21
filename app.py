@@ -3,8 +3,7 @@ import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 
 app = create_app()
-print("CREATE_APP CALLED")
-
+print("ROOT APP IMPORTED")
 
 app.add_middleware(
     CORSMiddleware,

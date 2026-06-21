@@ -11,6 +11,8 @@ from .disease_model import predict_disease
 from .rag import run_rag_pipeline
 import uuid
 
+print("STARTING APP")
+
 load_dotenv()
 
 print("APP FILE LOADED")
@@ -85,6 +87,7 @@ def groq_llm(prompt: str, system_prompt: str | None = None) -> str:
 
 def create_app() -> FastAPI:
     app = FastAPI()
+    print("CREATING FASTAPI APP")
     UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
 
     @app.get('/', response_class=HTMLResponse)

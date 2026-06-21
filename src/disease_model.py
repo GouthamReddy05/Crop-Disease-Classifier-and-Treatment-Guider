@@ -5,8 +5,6 @@ import numpy as np
 from PIL import Image
 from keras.models import load_model
 
-os.environ["USE_TF"] = "0"   # Disable TensorFlow imports
-os.environ["USE_TORCH"] = "1"  # Force PyTorch
 
 warnings.filterwarnings("ignore")
 
@@ -45,11 +43,28 @@ def process_image(inp_img):
     return img
 
 
-model = load_model(MODEL_PATH)
+model = None
+emb_model = None
 
+
+def get_model():
+    global model
+    if model is None:
+        print("Loading CNN model...")
+        model = load_model(MODEL_PATH)
+    return model
+
+
+def get_embedding_model():
+    global emb_model
+    if emb_model is None:
+        print("Loading embedding model...")
+        emb_model = SentenceTransformer("all-MiniLM-L6-v2")
+    return emb_model
 
 def predict_disease(image_path):
     img = process_image(image_path)
+    model = get_model()
     pred = model.predict(img)
     predicted_index = np.argmax(pred, axis=1)
     return f"{class_labels[int(predicted_index)]}"
@@ -57,8 +72,8 @@ def predict_disease(image_path):
 # print(predict_disease("sample.JPG"))
 
 
-emb_model = SentenceTransformer('all-MiniLM-L6-v2')
 
 
 def encode_output(text):
+    emb_model = get_embedding_model()
     return emb_model.encode(text, convert_to_tensor=True, show_progress_bar=False)
