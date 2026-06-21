@@ -1,7 +1,6 @@
-myenv/
+venv/
 __pycache__/
 *.pyc
-# *.keras
 *.so
 *.dylib
 *.log

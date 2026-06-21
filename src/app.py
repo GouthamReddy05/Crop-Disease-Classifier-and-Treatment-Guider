@@ -9,12 +9,15 @@ import traceback
 from pathlib import Path
 from .disease_model import predict_disease
 from .rag import run_rag_pipeline
+import uuid
 
 load_dotenv()
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 UPLOAD_FOLDER = ROOT_DIR / 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff'}
+
+
 
 # Load Groq API key
 groq_api_key = os.getenv('GROQ_API_KEY')
@@ -122,7 +125,7 @@ def create_app() -> FastAPI:
                 detail=f'File type not allowed. Supported formats: {", ".join(ALLOWED_EXTENSIONS)}'
             )
 
-        filename = secure_filename(image.filename)
+        filename = f"{uuid.uuid4()}_{secure_filename(image.filename)}"
         image_path = UPLOAD_FOLDER / filename
 
         try:
